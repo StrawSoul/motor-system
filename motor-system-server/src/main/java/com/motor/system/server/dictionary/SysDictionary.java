@@ -29,6 +29,7 @@ public class SysDictionary extends BaseEntity<Integer> {
         return appId;
     }
 
+
     public void setAppId(String appId) {
         this.appId = appId;
     }

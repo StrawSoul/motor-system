@@ -1,5 +1,8 @@
 package com.motor.system.server.command;
 
+import com.motor.common.domain.SearchCondition;
+import com.motor.common.paging.PagingRequest;
+
 /**
  * ===========================================================================================
  * 设计说明
@@ -19,5 +22,5 @@ package com.motor.system.server.command;
  * <p>
  * ===========================================================================================
  */
-public class SysMenuSearch {
+public class SysMenuSearch extends PagingRequest implements SearchCondition {
 }

@@ -1,5 +1,7 @@
 package com.motor.system.server.command;
 
+import com.motor.system.server.menu.SysMenu;
+
 /**
  * ===========================================================================================
  * 设计说明
@@ -19,5 +21,5 @@ package com.motor.system.server.command;
  * <p>
  * ===========================================================================================
  */
-public class SysMenuCreate  {
+public class SysMenuCreate extends SysMenu {
 }

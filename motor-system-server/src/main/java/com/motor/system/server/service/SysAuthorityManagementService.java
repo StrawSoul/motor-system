@@ -5,8 +5,8 @@ import com.motor.common.message.command.Command;
 import com.motor.common.message.command.CommandToEntityUtils;
 import com.motor.common.paging.PageList;
 import com.motor.common.utils.BeanMapperUtil;
-import com.motor.system.server.command.SysDictionarySearch;
-import com.motor.system.server.dictionary.SysDictionary;
+import com.motor.system.server.authority.SysAuthority;
+import com.motor.system.server.command.SysAuthoritySearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,37 +32,36 @@ import java.util.Optional;
  * ===========================================================================================
  */
 @Service
-public class SysDictionaryManagementService {
-
+public class SysAuthorityManagementService {
     @Autowired
-    private Repository<Integer,SysDictionary> sysDictionaryRepository;
+    private Repository<Integer, SysAuthority> sysAuthorityRepository;
 
-    public void create(Command<SysDictionary> cmd) {
-        SysDictionary sysDictionary = BeanMapperUtil.map(cmd.data(), SysDictionary.class);
-        CommandToEntityUtils.forInsert(cmd, sysDictionary);
-        sysDictionaryRepository.insert(sysDictionary);
+    public void create(Command<SysAuthority> cmd) {
+        SysAuthority SysAuthority = BeanMapperUtil.map(cmd.data(), SysAuthority.class);
+        CommandToEntityUtils.forInsert(cmd, SysAuthority);
+        sysAuthorityRepository.insert(SysAuthority);
     }
 
     public void remove(Command<Integer> cmd) {
         Integer id = Optional.of(cmd.data()).get();
-        sysDictionaryRepository.delete(id);
+        sysAuthorityRepository.delete(id);
     }
 
-    public void modify(Command<SysDictionary> cmd) {
-        SysDictionary SysDictionary = BeanMapperUtil.map(cmd.data(), SysDictionary.class);
-        CommandToEntityUtils.forInsert(cmd, SysDictionary);
-        sysDictionaryRepository.update(SysDictionary);
+    public void modify(Command<SysAuthority> cmd) {
+        SysAuthority SysAuthority = BeanMapperUtil.map(cmd.data(), SysAuthority.class);
+        CommandToEntityUtils.forInsert(cmd, SysAuthority);
+        sysAuthorityRepository.update(SysAuthority);
     }
 
-    public SysDictionary findById(Command<Integer> cmd) {
+    public SysAuthority findById(Command<Integer> cmd) {
         Integer id = Optional.of(cmd.data()).get();
-        SysDictionary SysDictionary = sysDictionaryRepository.findById(id);
-        return SysDictionary;
+        SysAuthority SysAuthority = sysAuthorityRepository.findById(id);
+        return SysAuthority;
     }
 
-    public PageList<SysDictionary> search(Command<SysDictionarySearch> cmd) {
-        SysDictionarySearch search = cmd.data();
-        PageList<SysDictionary> pageList = sysDictionaryRepository.search(search, search.toPaging());
+    public PageList<SysAuthority> search(Command<SysAuthoritySearch> cmd) {
+        SysAuthoritySearch search = cmd.data();
+        PageList<SysAuthority> pageList = sysAuthorityRepository.search(search, search.toPaging());
         return pageList;
     }
 }

@@ -5,11 +5,10 @@ import com.motor.common.message.result.ResultBuilder;
 import com.motor.common.message.result.ResultData;
 import com.motor.common.paging.PageList;
 import com.motor.message.http.servlet.HttpServletCommandBuilder;
-import com.motor.system.server.command.SysMenuSearch;
-import com.motor.system.server.menu.SysMenu;
-import com.motor.system.server.command.SysMenuCreate;
-import com.motor.system.server.command.SysMenuModify;
-import com.motor.system.server.service.SysMenuManagementService;
+import com.motor.system.server.command.SysLinkSearch;
+import com.motor.system.server.link.SysLink;
+import com.motor.system.server.service.SysLinkManagementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -32,17 +31,17 @@ import org.springframework.web.bind.annotation.*;
  * ===========================================================================================
  */
 @RestController
-@RequestMapping("management/system/menu")
-public class SysMenuManagementController {
-
-    SysMenuManagementService sysMenuService;
+@RequestMapping("management/system/dictionary/link")
+public class SysLinkManagementController {
+    @Autowired
+    SysLinkManagementService SysLinkService;
 
     @PostMapping
-    public ResultData create(@RequestBody SysMenu sysMenuCreate){
-        Command<SysMenu> cmd = HttpServletCommandBuilder.get()
-                .data(sysMenuCreate)
+    public ResultData create(@RequestBody SysLink SysLinkCreate){
+        Command<SysLink> cmd = HttpServletCommandBuilder.get()
+                .data(SysLinkCreate)
                 .build();
-        sysMenuService.create(cmd);
+        SysLinkService.create(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
@@ -52,18 +51,18 @@ public class SysMenuManagementController {
         Command<Integer> cmd = HttpServletCommandBuilder.get()
                 .data(id)
                 .build();
-        sysMenuService.remove(cmd);
+        SysLinkService.remove(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
     }
     @PutMapping("{id}")
-    public ResultData modify(@PathVariable Integer id, @RequestBody SysMenu sysMenuModify){
-        sysMenuModify.setId(id);
-        Command<SysMenu> cmd = HttpServletCommandBuilder.get()
-                .data(sysMenuModify)
+    public ResultData modify(@PathVariable Integer id, @RequestBody SysLink SysLinkModify){
+        SysLinkModify.setId(id);
+        Command<SysLink> cmd = HttpServletCommandBuilder.get()
+                .data(SysLinkModify)
                 .build();
-        sysMenuService.modify(cmd);
+        SysLinkService.modify(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
@@ -73,18 +72,18 @@ public class SysMenuManagementController {
         Command<Integer> cmd = HttpServletCommandBuilder.get()
                 .data(id)
                 .build();
-        SysMenu menu = sysMenuService.findById(cmd);
+        SysLink menu = SysLinkService.findById(cmd);
         return ResultBuilder.getInstance()
                 .data(menu)
                 .success()
                 .build();
     }
     @GetMapping
-    public ResultData<PageList<SysMenu>> search(SysMenuSearch SysMenuSearch){
-        Command<SysMenuSearch> cmd = HttpServletCommandBuilder.get()
-                .data(SysMenuSearch)
+    public ResultData<PageList<SysLink>> search(SysLinkSearch SysLinkSearch){
+        Command<SysLinkSearch> cmd = HttpServletCommandBuilder.get()
+                .data(SysLinkSearch)
                 .build();
-        PageList<SysMenu> pageList = sysMenuService.search(cmd);
+        PageList<SysLink> pageList = SysLinkService.search(cmd);
         return ResultBuilder.getInstance()
                 .data(pageList)
                 .success()

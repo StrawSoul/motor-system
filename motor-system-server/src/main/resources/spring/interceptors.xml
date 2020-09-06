@@ -16,7 +16,7 @@
 <mvc:interceptors>
     <mvc:interceptor>
         <mvc:mapping path="/**"/>
-        <bean class="com.motor.iot.metadata.server.handler.CommandBuilderInterceptor" />
+        <bean class="com.motor.system.server.handler.CommandBuilderInterceptor" />
     </mvc:interceptor>
 <!--    <mvc:interceptor>-->
 <!--        <mvc:mapping path="/**"/>-->

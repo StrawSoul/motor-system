@@ -25,11 +25,12 @@ public class SysDictionaryOption extends BaseEntity<Integer> {
 
     private String dictionaryId;
     private String label;
-    private Integer weight;
+    private Float weight;
 
     public String getDictionaryId() {
         return dictionaryId;
     }
+
 
     public void setDictionaryId(String dictionaryId) {
         this.dictionaryId = dictionaryId;
@@ -43,11 +44,11 @@ public class SysDictionaryOption extends BaseEntity<Integer> {
         this.label = label;
     }
 
-    public Integer getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 }

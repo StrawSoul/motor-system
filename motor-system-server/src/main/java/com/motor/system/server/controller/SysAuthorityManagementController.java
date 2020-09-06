@@ -5,11 +5,10 @@ import com.motor.common.message.result.ResultBuilder;
 import com.motor.common.message.result.ResultData;
 import com.motor.common.paging.PageList;
 import com.motor.message.http.servlet.HttpServletCommandBuilder;
-import com.motor.system.server.command.SysMenuSearch;
-import com.motor.system.server.menu.SysMenu;
-import com.motor.system.server.command.SysMenuCreate;
-import com.motor.system.server.command.SysMenuModify;
-import com.motor.system.server.service.SysMenuManagementService;
+import com.motor.system.server.authority.SysAuthority;
+import com.motor.system.server.command.SysAuthoritySearch;
+import com.motor.system.server.service.SysAuthorityManagementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -32,17 +31,18 @@ import org.springframework.web.bind.annotation.*;
  * ===========================================================================================
  */
 @RestController
-@RequestMapping("management/system/menu")
-public class SysMenuManagementController {
+@RequestMapping("management/system/authority")
+public class SysAuthorityManagementController {
 
-    SysMenuManagementService sysMenuService;
+    @Autowired
+    SysAuthorityManagementService sysAuthorityService;
 
     @PostMapping
-    public ResultData create(@RequestBody SysMenu sysMenuCreate){
-        Command<SysMenu> cmd = HttpServletCommandBuilder.get()
-                .data(sysMenuCreate)
+    public ResultData create(@RequestBody SysAuthority SysAuthorityCreate){
+        Command<SysAuthority> cmd = HttpServletCommandBuilder.get()
+                .data(SysAuthorityCreate)
                 .build();
-        sysMenuService.create(cmd);
+        sysAuthorityService.create(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
@@ -52,18 +52,18 @@ public class SysMenuManagementController {
         Command<Integer> cmd = HttpServletCommandBuilder.get()
                 .data(id)
                 .build();
-        sysMenuService.remove(cmd);
+        sysAuthorityService.remove(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
     }
     @PutMapping("{id}")
-    public ResultData modify(@PathVariable Integer id, @RequestBody SysMenu sysMenuModify){
-        sysMenuModify.setId(id);
-        Command<SysMenu> cmd = HttpServletCommandBuilder.get()
-                .data(sysMenuModify)
+    public ResultData modify(@PathVariable Integer id, @RequestBody SysAuthority SysAuthorityModify){
+        SysAuthorityModify.setId(id);
+        Command<SysAuthority> cmd = HttpServletCommandBuilder.get()
+                .data(SysAuthorityModify)
                 .build();
-        sysMenuService.modify(cmd);
+        sysAuthorityService.modify(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
@@ -73,18 +73,18 @@ public class SysMenuManagementController {
         Command<Integer> cmd = HttpServletCommandBuilder.get()
                 .data(id)
                 .build();
-        SysMenu menu = sysMenuService.findById(cmd);
+        SysAuthority menu = sysAuthorityService.findById(cmd);
         return ResultBuilder.getInstance()
                 .data(menu)
                 .success()
                 .build();
     }
     @GetMapping
-    public ResultData<PageList<SysMenu>> search(SysMenuSearch SysMenuSearch){
-        Command<SysMenuSearch> cmd = HttpServletCommandBuilder.get()
-                .data(SysMenuSearch)
+    public ResultData<PageList<SysAuthority>> search(SysAuthoritySearch SysAuthoritySearch){
+        Command<SysAuthoritySearch> cmd = HttpServletCommandBuilder.get()
+                .data(SysAuthoritySearch)
                 .build();
-        PageList<SysMenu> pageList = sysMenuService.search(cmd);
+        PageList<SysAuthority> pageList = sysAuthorityService.search(cmd);
         return ResultBuilder.getInstance()
                 .data(pageList)
                 .success()

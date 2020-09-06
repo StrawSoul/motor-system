@@ -5,11 +5,10 @@ import com.motor.common.message.result.ResultBuilder;
 import com.motor.common.message.result.ResultData;
 import com.motor.common.paging.PageList;
 import com.motor.message.http.servlet.HttpServletCommandBuilder;
-import com.motor.system.server.command.SysMenuSearch;
-import com.motor.system.server.menu.SysMenu;
-import com.motor.system.server.command.SysMenuCreate;
-import com.motor.system.server.command.SysMenuModify;
-import com.motor.system.server.service.SysMenuManagementService;
+import com.motor.system.server.authority.SysRoleAuthority;
+import com.motor.system.server.command.SysRoleAuthoritySearch;
+import com.motor.system.server.service.SysRoleAuthorityManagementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -32,17 +31,17 @@ import org.springframework.web.bind.annotation.*;
  * ===========================================================================================
  */
 @RestController
-@RequestMapping("management/system/menu")
-public class SysMenuManagementController {
-
-    SysMenuManagementService sysMenuService;
+@RequestMapping("management/system/role-authority")
+public class SysRoleAuthorityManagementController {
+    @Autowired
+    SysRoleAuthorityManagementService sysRoleAuthorityService;
 
     @PostMapping
-    public ResultData create(@RequestBody SysMenu sysMenuCreate){
-        Command<SysMenu> cmd = HttpServletCommandBuilder.get()
-                .data(sysMenuCreate)
+    public ResultData create(@RequestBody SysRoleAuthority SysRoleAuthorityCreate){
+        Command<SysRoleAuthority> cmd = HttpServletCommandBuilder.get()
+                .data(SysRoleAuthorityCreate)
                 .build();
-        sysMenuService.create(cmd);
+        sysRoleAuthorityService.create(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
@@ -52,18 +51,18 @@ public class SysMenuManagementController {
         Command<Integer> cmd = HttpServletCommandBuilder.get()
                 .data(id)
                 .build();
-        sysMenuService.remove(cmd);
+        sysRoleAuthorityService.remove(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
     }
     @PutMapping("{id}")
-    public ResultData modify(@PathVariable Integer id, @RequestBody SysMenu sysMenuModify){
-        sysMenuModify.setId(id);
-        Command<SysMenu> cmd = HttpServletCommandBuilder.get()
-                .data(sysMenuModify)
+    public ResultData modify(@PathVariable Integer id, @RequestBody SysRoleAuthority SysRoleAuthorityModify){
+        SysRoleAuthorityModify.setId(id);
+        Command<SysRoleAuthority> cmd = HttpServletCommandBuilder.get()
+                .data(SysRoleAuthorityModify)
                 .build();
-        sysMenuService.modify(cmd);
+        sysRoleAuthorityService.modify(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
@@ -73,18 +72,18 @@ public class SysMenuManagementController {
         Command<Integer> cmd = HttpServletCommandBuilder.get()
                 .data(id)
                 .build();
-        SysMenu menu = sysMenuService.findById(cmd);
+        SysRoleAuthority menu = sysRoleAuthorityService.findById(cmd);
         return ResultBuilder.getInstance()
                 .data(menu)
                 .success()
                 .build();
     }
     @GetMapping
-    public ResultData<PageList<SysMenu>> search(SysMenuSearch SysMenuSearch){
-        Command<SysMenuSearch> cmd = HttpServletCommandBuilder.get()
-                .data(SysMenuSearch)
+    public ResultData<PageList<SysRoleAuthority>> search( SysRoleAuthoritySearch SysRoleAuthoritySearch){
+        Command<SysRoleAuthoritySearch> cmd = HttpServletCommandBuilder.get()
+                .data(SysRoleAuthoritySearch)
                 .build();
-        PageList<SysMenu> pageList = sysMenuService.search(cmd);
+        PageList<SysRoleAuthority> pageList = sysRoleAuthorityService.search(cmd);
         return ResultBuilder.getInstance()
                 .data(pageList)
                 .success()

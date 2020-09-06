@@ -5,8 +5,8 @@ import com.motor.common.message.command.Command;
 import com.motor.common.message.command.CommandToEntityUtils;
 import com.motor.common.paging.PageList;
 import com.motor.common.utils.BeanMapperUtil;
-import com.motor.system.server.command.SysDictionarySearch;
-import com.motor.system.server.dictionary.SysDictionary;
+import com.motor.system.server.command.SysLinkSearch;
+import com.motor.system.server.link.SysLink;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,37 +32,36 @@ import java.util.Optional;
  * ===========================================================================================
  */
 @Service
-public class SysDictionaryManagementService {
-
+public class SysLinkManagementService {
     @Autowired
-    private Repository<Integer,SysDictionary> sysDictionaryRepository;
+    private Repository<Integer, SysLink> sysLinkRepository;
 
-    public void create(Command<SysDictionary> cmd) {
-        SysDictionary sysDictionary = BeanMapperUtil.map(cmd.data(), SysDictionary.class);
-        CommandToEntityUtils.forInsert(cmd, sysDictionary);
-        sysDictionaryRepository.insert(sysDictionary);
+    public void create(Command<SysLink> cmd) {
+        SysLink SysLink = BeanMapperUtil.map(cmd.data(), SysLink.class);
+        CommandToEntityUtils.forInsert(cmd, SysLink);
+        sysLinkRepository.insert(SysLink);
     }
 
     public void remove(Command<Integer> cmd) {
         Integer id = Optional.of(cmd.data()).get();
-        sysDictionaryRepository.delete(id);
+        sysLinkRepository.delete(id);
     }
 
-    public void modify(Command<SysDictionary> cmd) {
-        SysDictionary SysDictionary = BeanMapperUtil.map(cmd.data(), SysDictionary.class);
-        CommandToEntityUtils.forInsert(cmd, SysDictionary);
-        sysDictionaryRepository.update(SysDictionary);
+    public void modify(Command<SysLink> cmd) {
+        SysLink SysLink = BeanMapperUtil.map(cmd.data(), SysLink.class);
+        CommandToEntityUtils.forInsert(cmd, SysLink);
+        sysLinkRepository.update(SysLink);
     }
 
-    public SysDictionary findById(Command<Integer> cmd) {
+    public SysLink findById(Command<Integer> cmd) {
         Integer id = Optional.of(cmd.data()).get();
-        SysDictionary SysDictionary = sysDictionaryRepository.findById(id);
-        return SysDictionary;
+        SysLink SysLink = sysLinkRepository.findById(id);
+        return SysLink;
     }
 
-    public PageList<SysDictionary> search(Command<SysDictionarySearch> cmd) {
-        SysDictionarySearch search = cmd.data();
-        PageList<SysDictionary> pageList = sysDictionaryRepository.search(search, search.toPaging());
+    public PageList<SysLink> search(Command<SysLinkSearch> cmd) {
+        SysLinkSearch search = cmd.data();
+        PageList<SysLink> pageList = sysLinkRepository.search(search, search.toPaging());
         return pageList;
     }
 }

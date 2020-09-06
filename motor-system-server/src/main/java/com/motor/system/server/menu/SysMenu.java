@@ -26,6 +26,7 @@ public class SysMenu extends TreeEntity<Integer> {
     private String pageId;
     private String authCode;
 
+
     public String getLinkId() {
         return linkId;
     }

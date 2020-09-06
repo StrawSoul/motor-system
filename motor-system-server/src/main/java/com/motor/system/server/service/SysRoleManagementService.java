@@ -1,12 +1,13 @@
 package com.motor.system.server.service;
 
+import com.motor.common.domain.PrimaryKeyProducer;
 import com.motor.common.domain.Repository;
 import com.motor.common.message.command.Command;
 import com.motor.common.message.command.CommandToEntityUtils;
 import com.motor.common.paging.PageList;
 import com.motor.common.utils.BeanMapperUtil;
-import com.motor.system.server.command.SysDictionarySearch;
-import com.motor.system.server.dictionary.SysDictionary;
+import com.motor.system.server.authority.SysRole;
+import com.motor.system.server.command.SysRoleSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,37 +33,36 @@ import java.util.Optional;
  * ===========================================================================================
  */
 @Service
-public class SysDictionaryManagementService {
-
+public class SysRoleManagementService {
     @Autowired
-    private Repository<Integer,SysDictionary> sysDictionaryRepository;
+    private Repository<Integer, SysRole> sysRoleRepository;
 
-    public void create(Command<SysDictionary> cmd) {
-        SysDictionary sysDictionary = BeanMapperUtil.map(cmd.data(), SysDictionary.class);
-        CommandToEntityUtils.forInsert(cmd, sysDictionary);
-        sysDictionaryRepository.insert(sysDictionary);
+    public void create(Command<SysRole> cmd) {
+        SysRole SysRole = BeanMapperUtil.map(cmd.data(), SysRole.class);
+        CommandToEntityUtils.forInsert(cmd, SysRole);
+        sysRoleRepository.insert(SysRole);
     }
 
     public void remove(Command<Integer> cmd) {
         Integer id = Optional.of(cmd.data()).get();
-        sysDictionaryRepository.delete(id);
+        sysRoleRepository.delete(id);
     }
 
-    public void modify(Command<SysDictionary> cmd) {
-        SysDictionary SysDictionary = BeanMapperUtil.map(cmd.data(), SysDictionary.class);
-        CommandToEntityUtils.forInsert(cmd, SysDictionary);
-        sysDictionaryRepository.update(SysDictionary);
+    public void modify(Command<SysRole> cmd) {
+        SysRole SysRole = BeanMapperUtil.map(cmd.data(), SysRole.class);
+        CommandToEntityUtils.forInsert(cmd, SysRole);
+        sysRoleRepository.update(SysRole);
     }
 
-    public SysDictionary findById(Command<Integer> cmd) {
+    public SysRole findById(Command<Integer> cmd) {
         Integer id = Optional.of(cmd.data()).get();
-        SysDictionary SysDictionary = sysDictionaryRepository.findById(id);
-        return SysDictionary;
+        SysRole SysRole = sysRoleRepository.findById(id);
+        return SysRole;
     }
 
-    public PageList<SysDictionary> search(Command<SysDictionarySearch> cmd) {
-        SysDictionarySearch search = cmd.data();
-        PageList<SysDictionary> pageList = sysDictionaryRepository.search(search, search.toPaging());
+    public PageList<SysRole> search(Command<SysRoleSearch> cmd) {
+        SysRoleSearch search = cmd.data();
+        PageList<SysRole> pageList = sysRoleRepository.search(search, search.toPaging());
         return pageList;
     }
 }

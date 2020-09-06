@@ -5,13 +5,10 @@ import com.motor.common.message.result.ResultBuilder;
 import com.motor.common.message.result.ResultData;
 import com.motor.common.paging.PageList;
 import com.motor.message.http.servlet.HttpServletCommandBuilder;
-import com.motor.system.server.command.SysMenuCreate;
-import com.motor.system.server.command.SysMenuModify;
-import com.motor.system.server.command.SysMenuSearch;
+import com.motor.system.server.command.SysDictionarySearch;
 import com.motor.system.server.dictionary.SysDictionary;
-import com.motor.system.server.menu.SysMenu;
 import com.motor.system.server.service.SysDictionaryManagementService;
-import com.motor.system.server.service.SysMenuManagementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -34,59 +31,59 @@ import org.springframework.web.bind.annotation.*;
  * ===========================================================================================
  */
 @RestController
-@RequestMapping("management/iot/entity")
+@RequestMapping("management/system/dictionary")
 public class SysDictionaryManagementController {
-
-    SysDictionaryManagementService sysMenuService;
+    @Autowired
+    SysDictionaryManagementService sysDictionaryService;
 
     @PostMapping
-    public ResultData create(@RequestBody SysDictionary SysMenuCreate){
+    public ResultData create(@RequestBody SysDictionary SysDictionaryCreate){
         Command<SysDictionary> cmd = HttpServletCommandBuilder.get()
-                .data(SysMenuCreate)
+                .data(SysDictionaryCreate)
                 .build();
-        sysMenuService.create(cmd);
+        sysDictionaryService.create(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
     }
     @DeleteMapping("{id}")
-    public ResultData remove(@PathVariable String id){
-        Command<String> cmd = HttpServletCommandBuilder.get()
+    public ResultData remove(@PathVariable Integer id){
+        Command<Integer> cmd = HttpServletCommandBuilder.get()
                 .data(id)
                 .build();
-        sysMenuService.remove(cmd);
+        sysDictionaryService.remove(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
     }
     @PutMapping("{id}")
-    public ResultData modify(@PathVariable Integer id, @RequestBody SysMenuModify SysMenuModify){
-        SysMenuModify.setId(id);
-        Command<SysMenuModify> cmd = HttpServletCommandBuilder.get()
-                .data(SysMenuModify)
+    public ResultData modify(@PathVariable Integer id, @RequestBody SysDictionary SysDictionaryModify){
+        SysDictionaryModify.setId(id);
+        Command<SysDictionary> cmd = HttpServletCommandBuilder.get()
+                .data(SysDictionaryModify)
                 .build();
-        sysMenuService.modify(cmd);
+        sysDictionaryService.modify(cmd);
         return ResultBuilder.getInstance()
                 .success()
                 .build();
     }
     @GetMapping("{id}")
-    public ResultData findById(@PathVariable String id){
-        Command<String> cmd = HttpServletCommandBuilder.get()
+    public ResultData findById(@PathVariable Integer id){
+        Command<Integer> cmd = HttpServletCommandBuilder.get()
                 .data(id)
                 .build();
-        SysDictionary menu = sysMenuService.findById(cmd);
+        SysDictionary menu = sysDictionaryService.findById(cmd);
         return ResultBuilder.getInstance()
                 .data(menu)
                 .success()
                 .build();
     }
     @GetMapping
-    public ResultData<PageList<SysMenu>> search(@RequestBody SysMenuSearch SysMenuSearch){
-        Command<SysMenuSearch> cmd = HttpServletCommandBuilder.get()
-                .data(SysMenuSearch)
+    public ResultData<PageList<SysDictionary>> search(SysDictionarySearch SysDictionarySearch){
+        Command<SysDictionarySearch> cmd = HttpServletCommandBuilder.get()
+                .data(SysDictionarySearch)
                 .build();
-        PageList<SysMenu> pageList = sysMenuService.search(cmd);
+        PageList<SysDictionary> pageList = sysDictionaryService.search(cmd);
         return ResultBuilder.getInstance()
                 .data(pageList)
                 .success()
