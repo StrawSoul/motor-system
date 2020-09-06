@@ -14,22 +14,30 @@ import com.motor.common.domain.BaseEntity;
  * ===========================================================================================
  * 变更记录
  * -------------------------------------------------------------------------------------------
- * version: 0.0.0  2020/9/4 14:00  zlj
+ * version: 0.0.0  2020/9/4 15:00  zlj
  * 创建
  * -------------------------------------------------------------------------------------------
  * version: 0.0.1  {date}       {author}
  * <p>
  * ===========================================================================================
  */
-public class SysUserAuthority extends BaseEntity<Integer> {
+public class SysRoleAuthority extends BaseEntity<Integer> {
+    private String roleId;
+    private Integer authorityId;
 
-    private String userId;
-
-    public String getUserId() {
-        return userId;
+    public String getRoleId() {
+        return roleId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    public Integer getAuthorityId() {
+        return authorityId;
+    }
+
+    public void setAuthorityId(Integer authorityId) {
+        this.authorityId = authorityId;
     }
 }

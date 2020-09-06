@@ -52,6 +52,6 @@ mybatis:
   type-aliases-package: com.motor.system
 logging:
   config: classpath:log4j2.yml
-
+appId: 0
 
 

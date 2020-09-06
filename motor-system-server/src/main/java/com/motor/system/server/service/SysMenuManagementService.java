@@ -1,6 +1,11 @@
-package com.motor.system.server.dictionary;
+package com.motor.system.server.service;
 
-import com.motor.common.domain.BaseEntity;
+import com.motor.common.message.command.Command;
+import com.motor.common.paging.PageList;
+import com.motor.system.server.command.SysMenuCreate;
+import com.motor.system.server.command.SysMenuModify;
+import com.motor.system.server.command.SysMenuSearch;
+import com.motor.system.server.menu.SysMenu;
 
 /**
  * ===========================================================================================
@@ -14,30 +19,31 @@ import com.motor.common.domain.BaseEntity;
  * ===========================================================================================
  * 变更记录
  * -------------------------------------------------------------------------------------------
- * version: 0.0.0  2020/9/4 14:00  zlj
+ * version: 0.0.0  2020/9/4 15:00  zlj
  * 创建
  * -------------------------------------------------------------------------------------------
  * version: 0.0.1  {date}       {author}
  * <p>
  * ===========================================================================================
  */
-public class SysDictionary extends BaseEntity<Integer> {
+public class SysMenuManagementService {
+    public void create(Command<SysMenuCreate> cmd) {
 
-    private String appId;
-    private String authCode;
-    public String getAppId() {
-        return appId;
     }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
+    public void remove(Command<String> cmd) {
+
     }
 
-    public String getAuthCode() {
-        return authCode;
+    public void modify(Command<SysMenuModify> cmd) {
+
     }
 
-    public void setAuthCode(String authCode) {
-        this.authCode = authCode;
+    public SysMenu findById(Command<String> cmd) {
+        return null;
+    }
+
+    public PageList<SysMenu> search(Command<SysMenuSearch> cmd) {
+        return null;
     }
 }

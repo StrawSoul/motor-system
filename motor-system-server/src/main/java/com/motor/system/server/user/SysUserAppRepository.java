@@ -1,7 +1,10 @@
-package com.motor.system.server.menu;
+package com.motor.system.server.user;
 
-import com.motor.common.domain.BaseEntity;
-import com.motor.common.domain.TreeEntity;
+import com.motor.common.dsl.handler.PersistentDSLBuilders;
+import com.motor.common.spring.repository.SimpleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 /**
  * ===========================================================================================
@@ -15,32 +18,17 @@ import com.motor.common.domain.TreeEntity;
  * ===========================================================================================
  * 变更记录
  * -------------------------------------------------------------------------------------------
- * version: 0.0.0  2020/9/4 13:00  zlj
+ * version: 0.0.0  2020/9/4 14:00  zlj
  * 创建
  * -------------------------------------------------------------------------------------------
  * version: 0.0.1  {date}       {author}
  * <p>
  * ===========================================================================================
  */
-public class Menu extends TreeEntity<Integer> {
-
-    private String linkId;
-    private String pageId;
-
-    public String getLinkId() {
-        return linkId;
+@Service
+public class SysUserAppRepository extends SimpleRepository<Integer, SysUserApp> {
+    @Autowired
+    public SysUserAppRepository(JdbcTemplate jdbcTemplate, PersistentDSLBuilders persistentDSLBuilders) {
+        super("sys_user_app", SysUserApp.class, jdbcTemplate, persistentDSLBuilders);
     }
-
-    public void setLinkId(String linkId) {
-        this.linkId = linkId;
-    }
-
-    public String getPageId() {
-        return pageId;
-    }
-
-    public void setPageId(String pageId) {
-        this.pageId = pageId;
-    }
-
 }

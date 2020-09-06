@@ -1,6 +1,5 @@
 package com.motor.system.server.authority;
 
-import com.motor.common.domain.BaseEntity;
 import com.motor.common.domain.TreeEntity;
 
 /**

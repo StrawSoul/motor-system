@@ -1,6 +1,6 @@
-package com.motor.system.server.link;
+package com.motor.system.server.menu;
 
-import com.motor.common.domain.BaseEntity;
+import com.motor.common.domain.TreeEntity;
 
 /**
  * ===========================================================================================
@@ -21,24 +21,32 @@ import com.motor.common.domain.BaseEntity;
  * <p>
  * ===========================================================================================
  */
-public class Link extends BaseEntity<Integer> {
+public class SysMenu extends TreeEntity<Integer> {
+    private String linkId;
+    private String pageId;
+    private String authCode;
 
-    private String appId;
-    private String url;
-
-    public String getAppId() {
-        return appId;
+    public String getLinkId() {
+        return linkId;
     }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
+    public void setLinkId(String linkId) {
+        this.linkId = linkId;
     }
 
-    public String getUrl() {
-        return url;
+    public String getPageId() {
+        return pageId;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPageId(String pageId) {
+        this.pageId = pageId;
+    }
+
+    public String getAuthCode() {
+        return authCode;
+    }
+
+    public void setAuthCode(String authCode) {
+        this.authCode = authCode;
     }
 }

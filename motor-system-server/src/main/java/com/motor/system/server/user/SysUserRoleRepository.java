@@ -1,6 +1,10 @@
-package com.motor.system.server.dictionary;
+package com.motor.system.server.user;
 
-import com.motor.common.domain.BaseEntity;
+import com.motor.common.dsl.handler.PersistentDSLBuilders;
+import com.motor.common.spring.repository.SimpleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 /**
  * ===========================================================================================
@@ -21,23 +25,10 @@ import com.motor.common.domain.BaseEntity;
  * <p>
  * ===========================================================================================
  */
-public class SysDictionary extends BaseEntity<Integer> {
-
-    private String appId;
-    private String authCode;
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getAuthCode() {
-        return authCode;
-    }
-
-    public void setAuthCode(String authCode) {
-        this.authCode = authCode;
+@Service
+public class SysUserRoleRepository extends SimpleRepository<Integer, SysUserRole> {
+    @Autowired
+    public SysUserRoleRepository(JdbcTemplate jdbcTemplate, PersistentDSLBuilders persistentDSLBuilders) {
+        super("sys_user_role", SysUserRole.class, jdbcTemplate, persistentDSLBuilders);
     }
 }
